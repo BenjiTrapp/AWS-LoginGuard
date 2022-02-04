@@ -6,12 +6,12 @@ PENTESTING_OS_USER_AGENTS = ["kali", "parrot", "pentoo", "botocore"]
 
 
 def lambda_handler(event, context):
-    identity = event['userIdentity']
+    user_identity = event['userIdentity']
     user_agent = event['userAgent']
-    arn = identity['arn']
+    arn = user_identity['arn']
 
-    if not user_in_whitelist(principal_id=identity['principalId']):
-        send_mail(event=create_body_payload(arn, user_agent))
+    if not is_user_in_whitelist(principal_id=user_identity['principalId']):
+        send_mail(payload=create_body_payload(arn, user_agent))
 
     return {'statusCode': 200}
 
@@ -20,7 +20,7 @@ def check_user_agent(user_agent):
     return any(agent in user_agent.lower() for agent in PENTESTING_OS_USER_AGENTS)
 
 
-def user_in_whitelist(principal_id):
+def is_user_in_whitelist(principal_id):
     return any(id in principal_id for id in USER_WHITELIST)
 
 
@@ -31,8 +31,7 @@ def create_body_payload(arn, user_agent):
             }
 
 
-def send_mail(event):
-    print(event)
+def send_mail(payload):
     SENDER = "sender@mail.com"
     RECIPIENT = "recipient@mail.com"
     AWS_REGION = "eu-central-1"
@@ -45,13 +44,13 @@ def send_mail(event):
     BODY_HTML = """<html>
     <head></head>
     <body>
-        <p> Details about the (possible) intruder</p>
+        <p>Details about the (possible) intruder</p>
         <p>Username: {0} </p>
         <p>UserAgent: {1} </p>
         <p>Pentester: {2} </p>
     </body>
     </html>
-    """.format(event['Username'], event['UserAgent'], event['Pentester'])
+    """.format(payload['Username'], payload['UserAgent'], payload['Pentester'])
 
     client = boto3.client('ses', region_name=AWS_REGION)
 
