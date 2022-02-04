@@ -1,0 +1,6 @@
+autopep8
+bandit
+boto3
+coverage
+pycodestyle
+moto
