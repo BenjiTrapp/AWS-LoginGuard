@@ -1,6 +1,7 @@
 autopep8
 bandit
 boto3
+botocore
 coverage
 pycodestyle
 moto
