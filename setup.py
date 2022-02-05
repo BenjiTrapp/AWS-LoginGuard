@@ -13,7 +13,7 @@ setup(name='AWSLoginGuard',
       ],
       install_requires=[
           'botocore',
-          'boto3',
+          'boto3'
       ],
       python_requires='>=3.8',
       zip_safe=True)
