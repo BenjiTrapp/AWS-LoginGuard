@@ -1,3 +1,4 @@
+import json
 import boto3
 from botocore.exceptions import ClientError
 
@@ -31,7 +32,7 @@ def create_body_payload(arn, user_agent):
             }
 
 
-def send_mail(payload):
+def send_mail(payload, client=None):
     SENDER = "sender@mail.com"
     RECIPIENT = "recipient@mail.com"
     AWS_REGION = "eu-central-1"
@@ -52,7 +53,8 @@ def send_mail(payload):
     </html>
     """.format(payload['Username'], payload['UserAgent'], payload['Pentester'])
 
-    client = boto3.client('ses', region_name=AWS_REGION)
+    if not client:
+        client = boto3.client('ses', region_name=AWS_REGION)
 
     try:
         response = client.send_email(
@@ -82,5 +84,6 @@ def send_mail(payload):
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        print("Email sent! Message ID:"),
-        print(response['MessageId'])
+        return {'statusCode': 200,
+                'body': json.dumps("Email sent! Response: {0}".format(response))
+                }

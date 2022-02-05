@@ -7,7 +7,5 @@ If the event `AwsConsoleSignin` get's triggered, the Event Bridge shall trigger 
 ![](docs/AWSLoginGuard.png)
 
 ### Todo:
-1. Add some tests
-2. Make some nicer README and paint an architecture diagram
-3. Add some more tests
-4. Add a Terraform Script to deploy everything
+1. Make a fancier readme
+2. Add a Terraform Script to deploy everything

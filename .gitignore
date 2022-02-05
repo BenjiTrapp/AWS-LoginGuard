@@ -1,3 +1,4 @@
+.vscode
 check_user_in_whitelist(principal_id=identity['principalId'])# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
