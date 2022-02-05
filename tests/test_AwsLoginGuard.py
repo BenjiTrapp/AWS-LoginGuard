@@ -1,6 +1,6 @@
 from re import S
 import unittest
-import lib.AwsLoginGuard as guard
+import AwsLoginGuard as guard
 
 
 class TestAwsLoginGuard(unittest.TestCase):
