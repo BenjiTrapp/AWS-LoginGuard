@@ -4,6 +4,8 @@
 
 If the event `AwsConsoleSignin` get's triggered, the Event Bridge shall trigger a lambda function that gathers some info about "who is logging in" and try to check if it's a Pentester. Most of the guys are forgetting to disguise their user agents. In this first version we stay "detective", in later version also an automatic remediation could be implemented. Let's see how this script evolves :)
 
+![](docs/AWSLoginGuard.png)
+
 ### Todo:
 1. Add some tests
 2. Make some nicer README and paint an architecture diagram
