@@ -1,3 +1,5 @@
+[![Python application](https://github.com/BenjiTrapp/AWS-LoginGuard/actions/workflows/python-app.yml/badge.svg)](https://github.com/BenjiTrapp/AWS-LoginGuard/actions/workflows/python-app.yml)
+
 # AWS-LoginGuard
 
 > Ever wondered who is lurking around in your AWS Account? Get notified if someone strange is login into your AWS Account
