@@ -1,9 +1,9 @@
 from unittest.mock import patch
-from moto import mock_lambda, mock_ses
 import json
 import os
 import unittest
 import boto3
+from moto import mock_lambda, mock_ses
 import aws_loginguard as guard
 
 
