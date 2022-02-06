@@ -7,6 +7,7 @@ PENTESTING_OS_USER_AGENTS = ["kali", "parrot", "pentoo", "botocore"]
 
 
 def lambda_handler(event, context):
+    # pylint: disable=unused-argument
     user_identity = event['userIdentity']
     user_agent = event['userAgent']
     arn = user_identity['arn']
@@ -33,16 +34,16 @@ def create_body_payload(arn, user_agent):
 
 
 def send_mail(payload, client=None):
-    SENDER = "sender@mail.com"
-    RECIPIENT = "recipient@mail.com"
-    AWS_REGION = "eu-central-1"
-    CHARSET = "UTF-8"
-    SUBJECT = "ATTENTION: Some unplanned access was recognized"
+    sender = "sender@mail.com"
+    recipient = "recipient@mail.com"
+    aws_region = "eu-central-1"
+    charset = "UTF-8"
+    suject = "ATTENTION: Some unplanned access was recognized"
 
-    BODY_TEXT = (
+    body_text = (
         "This email was sent with Amazon SES using the AWS SDK for Python (Boto)")
 
-    BODY_HTML = """<html>
+    body_html = f'''<html>
     <head></head>
     <body>
         <p>Details about the (possible) intruder</p>
@@ -51,39 +52,40 @@ def send_mail(payload, client=None):
         <p>Pentester: {2} </p>
     </body>
     </html>
-    """.format(payload['Username'], payload['UserAgent'], payload['Pentester'])
+    '''.format(payload['Username'], payload['UserAgent'], payload['Pentester'])
 
     if not client:
-        client = boto3.client('ses', region_name=AWS_REGION)
+        client = boto3.client('ses', region_name=aws_region)
 
     try:
         response = client.send_email(
             Destination={
                 'ToAddresses': [
-                    RECIPIENT,
+                    recipient,
                 ],
             },
             Message={
                 'Body': {
                     'Html': {
-                        'Charset': CHARSET,
-                        'Data': BODY_HTML,
+                        'Charset': charset,
+                        'Data': body_html,
                     },
                     'Text': {
-                        'Charset': CHARSET,
-                        'Data': BODY_TEXT,
+                        'Charset': charset,
+                        'Data': body_text,
                     },
                 },
                 'Subject': {
-                    'Charset': CHARSET,
-                    'Data': SUBJECT,
+                    'Charset': charset,
+                    'Data': suject,
                 },
             },
-            Source=SENDER,
+            Source=sender,
         )
-    except ClientError as e:
-        print(e.response['Error']['Message'])
+    except ClientError as err:
+        print(err.response['Error']['Message'])
+        return {'statusCode': 500}
     else:
         return {'statusCode': 200,
-                'body': json.dumps("Email sent! Response: {0}".format(response))
+                'body': json.dumps(f"Email sent! Response: {0}".format(response))
                 }

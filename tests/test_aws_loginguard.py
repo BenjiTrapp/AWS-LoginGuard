@@ -1,14 +1,14 @@
 import unittest
-import AwsLoginGuard as guard
+import aws_loginguard as guard
 
 
 class TestAwsLoginGuard(unittest.TestCase):
     def test_check_user_agent_regular(self):
         # given
-        ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:62.0) Gecko/20100101 Firefox/62.0"
+        user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:62.0) Gecko/20100101 Firefox/62.0"
 
         # when
-        result = guard.check_user_agent(user_agent=ua)
+        result = guard.check_user_agent(user_agent=user_agent)
 
         # then
         self.assertEqual(False, result)

@@ -1,8 +1,8 @@
+from unittest.mock import patch
 import json
 import os
 import unittest
-from unittest.mock import patch
-import AwsLoginGuard as guard
+import aws_loginguard as guard
 import boto3
 from moto import mock_lambda, mock_ses
 
@@ -28,10 +28,8 @@ class TestMitMiMiMiIntegrationsHintergrund(unittest.TestCase):
     @mock_lambda
     def test_lambda_handler_no_mail_sent(self):
         # given
-        f = open(
-            "{0}/ressources/login_event.json".format(os.path.dirname(__file__)), "r")
-        event = json.loads(f.read())
-        f.close()
+        with open(f"{0}/ressources/login_event.json".format(os.path.dirname(__file__)), "r", encoding='utf-8') as file:
+            event = json.loads(file.read())
 
         # when
         response = guard.lambda_handler(event=event, context=None)
@@ -40,13 +38,11 @@ class TestMitMiMiMiIntegrationsHintergrund(unittest.TestCase):
         self.assertEqual({'statusCode': 200}, response)
 
     @mock_lambda
-    @patch("AwsLoginGuard.send_mail")
-    def test_lambda_handler_no_mail_sent(self, mail_mock):
+    @patch("aws_loginguard.send_mail")
+    def test_lambda_handler_mail_sent(self, mail_mock):
         # given
-        f = open(
-            "{0}/ressources/login_event_malicious.json".format(os.path.dirname(__file__)), "r")
-        event = json.loads(f.read())
-        f.close()
+        with open(f"{0}/ressources/login_event_malicious.json".format(os.path.dirname(__file__)), "r", encoding='utf-8') as file:
+            event = json.loads(file.read())
 
         # when
         response = guard.lambda_handler(event=event, context=None)

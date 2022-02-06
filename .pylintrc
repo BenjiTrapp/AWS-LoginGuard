@@ -1,0 +1,5 @@
+[MAIN]
+disable=C0114, # missing-module-docstring
+        C0115, # Missing class docstring (missing-class-docstring)
+        C0116, # Missing function or method docstring (missing-function-docstring)
+        C0301, # Line too long (105/100) (line-too-long)
