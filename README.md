@@ -1,4 +1,5 @@
 [![Python application](https://github.com/BenjiTrapp/AWS-LoginGuard/actions/workflows/python-app.yml/badge.svg)](https://github.com/BenjiTrapp/AWS-LoginGuard/actions/workflows/python-app.yml)
+[![CodeQL](https://github.com/BenjiTrapp/AWS-LoginGuard/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/BenjiTrapp/AWS-LoginGuard/actions/workflows/codeql-analysis.yml)
 
 # AWS-LoginGuard
 
