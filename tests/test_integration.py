@@ -7,7 +7,7 @@ import boto3
 from moto import mock_lambda, mock_ses
 
 
-class TestMitMiMiMiIntegrationsHintergrund(unittest.TestCase):
+class TestMitMiMiMintegrationsHintergrund(unittest.TestCase):
     @mock_ses
     def test_send_mail(self):
         # given
