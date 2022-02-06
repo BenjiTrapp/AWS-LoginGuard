@@ -43,7 +43,7 @@ def send_mail(payload, client=None):
     body_text = (
         "This email was sent with Amazon SES using the AWS SDK for Python (Boto)")
 
-    body_html = f'''<html>
+    body_html = '''<html>
     <head></head>
     <body>
         <p>Details about the (possible) intruder</p>

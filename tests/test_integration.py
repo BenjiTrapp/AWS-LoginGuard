@@ -23,12 +23,12 @@ class TestMitMiMiMintegrationsHintergrund(unittest.TestCase):
 
         # then
         self.assertEqual(200, response['statusCode'])
-        self.assertTrue("Email sent! Response: {" in response['body'])
+        self.assertTrue("Email sent! Response:" in response['body'])
 
     @mock_lambda
     def test_lambda_handler_no_mail_sent(self):
         # given
-        with open(f"{0}/ressources/login_event.json".format(os.path.dirname(__file__)), "r", encoding='utf-8') as file:
+        with open("{0}/ressources/login_event.json".format(os.path.dirname(__file__)), "r", encoding='utf-8') as file:
             event = json.loads(file.read())
 
         # when
@@ -41,7 +41,7 @@ class TestMitMiMiMintegrationsHintergrund(unittest.TestCase):
     @patch("aws_loginguard.send_mail")
     def test_lambda_handler_mail_sent(self, mail_mock):
         # given
-        with open(f"{0}/ressources/login_event_malicious.json".format(os.path.dirname(__file__)), "r", encoding='utf-8') as file:
+        with open("{0}/ressources/login_event_malicious.json".format(os.path.dirname(__file__)), "r", encoding='utf-8') as file:
             event = json.loads(file.read())
 
         # when
